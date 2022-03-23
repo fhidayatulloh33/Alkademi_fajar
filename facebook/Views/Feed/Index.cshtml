@@ -1,0 +1,13 @@
+@using facebook.Models
+
+<div class="text-center">
+    @foreach (var item in Model)
+    {
+
+        <h4>@item.usernameFeed</h4> 
+        <img src="@item.fotoProfilFeed" height="50"></img>  
+        <p>@item.tanggalFeed</p>
+        <p>@item.postFeed</p>
+        <img src="@item.fotoFeedLink"/>
+    }
+</div>
