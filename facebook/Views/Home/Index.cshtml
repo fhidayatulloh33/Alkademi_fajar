@@ -1,27 +1,35 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/scss" href="~/css/index.scss"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/facebook.styles.css" asp-append-version="true" />
-</head>
-<body>
-<section class="login-form-wrap">
-  <h1>Facebook</h1>
-  <form class="login-form" action="~/feed/detail">
-    <label>
-      <input type="email" name="email" required placeholder="Email">
-    </label>
-    <label>
-      <input type="password" name="password" required placeholder="Password">
-    </label>
-    <!--
-    <input type="submit" value="Login">
-    -->
-    <a href="~/feed/detail"><button>Masuk</button></a>
-  </form>
-</section>
-</body>
-</html>
+﻿@model IEnumerable<facebook.Models.LoginViewModel>
+
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -13,11 +13,11 @@ public class FeedController : Controller
     {
         // _logger = logger;
         _listFeed = new List<Feed>(){
-            new Feed(1, "fajar","a","19 maret 2022","selamat pagi bandung","a",null),
-            new Feed(2, "andri","b","20 maret 2022","selamat pagi bandung","b",null),
-            new Feed(3, "fandi","c","21 maret 2022","selamat pagi bandung","c",null),
-            new Feed(4, "brian","d","22 maret 2022","selamat pagi bandung","d",null),
-            new Feed(5, "syahrul","e","23 maret 2022","selamat pagi bandung","e",null),
+            new Feed(1, "fajar","a","19 maret 2022","selamat pagi bandung","a"),
+            new Feed(2, "andri","b","20 maret 2022","selamat pagi bandung","b"),
+            new Feed(3, "fandi","c","21 maret 2022","selamat pagi bandung","c"),
+            new Feed(4, "brian","d","22 maret 2022","selamat pagi bandung","d"),
+            new Feed(5, "syahrul","e","23 maret 2022","selamat pagi bandung","e"),
         };
     }
 
@@ -31,5 +31,58 @@ public class FeedController : Controller
 
         return View(_listFeed);
     }
+
+        // // GET: LoginController/Create
+        // public ActionResult Create()
+        // {
+        //     return View();
+        // }
+
+        // // POST: LoginController/Create
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public ActionResult Create(TweetViewModel collection)
+        // {
+        //     if(!ModelState.IsValid)
+        //     {
+        //         return View(collection);
+        //     }
+
+        //     try
+        //     {
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     catch
+        //     {
+        //         return View(collection);
+        //     }
+        // }
+
+        // // GET: Controller/Edit/5
+        // public ActionResult Edit(int id)
+        // {
+        //     return View();
+        // }
+
+        // // POST: TweetController/Edit/5
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public ActionResult Edit(int id, IFormCollection collection)
+        // {
+        //     try
+        //     {
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     catch
+        //     {
+        //         return View();
+        //     }
+        // }
+
+        // // GET: TweetController/Delete/5
+        // public ActionResult Delete(int id)
+        // {
+        //     return View();
+        // }
 
 }

@@ -8,9 +8,8 @@ public class Feed
     public string tanggalFeed { get; set; }
     public string postFeed { get; set; }
     public string fotoFeedLink { get; set; }
-    public User user { get; set; }
 
-    public Feed (int id, string fotoProfilFeed, string usernameFeed, string tanggalFeed, string postFeed, string fotoFeedLink, User user)
+    public Feed (int id, string fotoProfilFeed, string usernameFeed, string tanggalFeed, string postFeed, string fotoFeedLink)
     {
         this.id = id;
         this.usernameFeed = usernameFeed;
@@ -18,6 +17,5 @@ public class Feed
         this.tanggalFeed = tanggalFeed;
         this.postFeed = postFeed;
         this.fotoFeedLink = fotoFeedLink;
-        this.user = user;
     }
 }

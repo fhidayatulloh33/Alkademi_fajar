@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\bootcamp\\alkademi\\tugas offline\\facebook\\facebook.csproj": {}
+    "D:\\bootcamp\\alkademi\\tugas offline\\Alkademi_fajar\\facebook\\facebook.csproj": {}
   },
   "projects": {
-    "D:\\bootcamp\\alkademi\\tugas offline\\facebook\\facebook.csproj": {
+    "D:\\bootcamp\\alkademi\\tugas offline\\Alkademi_fajar\\facebook\\facebook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\bootcamp\\alkademi\\tugas offline\\facebook\\facebook.csproj",
+        "projectUniqueName": "D:\\bootcamp\\alkademi\\tugas offline\\Alkademi_fajar\\facebook\\facebook.csproj",
         "projectName": "facebook",
-        "projectPath": "D:\\bootcamp\\alkademi\\tugas offline\\facebook\\facebook.csproj",
+        "projectPath": "D:\\bootcamp\\alkademi\\tugas offline\\Alkademi_fajar\\facebook\\facebook.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "D:\\bootcamp\\alkademi\\tugas offline\\facebook\\obj\\",
+        "outputPath": "D:\\bootcamp\\alkademi\\tugas offline\\Alkademi_fajar\\facebook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
