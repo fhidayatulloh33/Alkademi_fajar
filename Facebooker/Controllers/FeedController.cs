@@ -18,21 +18,23 @@ namespace Facebooker.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = _fileService.Read();
-//            var feeds = _feedService.GetFeeds();
+            var data = await _fileService.Read();
+ //           var feeds = await _feedService.GetFeeds();
             return View(data);
+        }
+
+        public ActionResult Create()
+        {
+            return View(new FeedViewModel());
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(FeedViewModel collection)
         {
             await _fileService.Write(collection);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult Feed()
-        {
-            return View();
+            return RedirectToAction(nameof(Index));            
+            
+            
         }
     }
 }

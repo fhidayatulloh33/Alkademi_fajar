@@ -1,4 +1,4 @@
-@* @model IEnumerable<Facebooker.Models.FeedViewModel>
+@model IEnumerable<Facebooker.Models.FeedViewModel>
 
 @{
     Layout = "_NewLayout";
@@ -9,14 +9,14 @@
         <img src="~/asset/images/resources/admin2.jpg" alt="">
     </figure>
     <div class="newpst-input">
-        <form method="post" asp-action="index">
-            <textarea rows="2" placeholder="write something"></textarea>
+        <form method="post" asp-action="Create">
+            <textarea rows="2" placeholder="write something" name="Desk"></textarea>
             <div class="attachments">
                 <ul>
                     <li>
                         <i class="fa fa-image"></i>
                         <label class="fileContainer">
-                            <input type="text" placeholder="Link foto">
+                            <input type="text" placeholder="Link foto" name="Foto">
                         </label>
                     </li>
                     <li>
@@ -26,4 +26,4 @@
             </div>
         </form>
     </div>
-</div> *@
+</div>
