@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PagiApp.Datas;
+using PagiApp.Interfaces;
+using PagiApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,11 @@ builder.Services.AddDbContext<pagiContext>(
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors()
         );
+#region Bisnis service Injection 
 
+builder.Services.AddScoped<IKategoriService, KategoriService>();
+
+#endregion
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
