@@ -11,10 +11,10 @@ public class KategoriService : BaseDbService, IKategoriService
     {
     }
 
-    public async Task<ActionResult> Add(KategoriProducts obj)
+    public async Task<KategoriProduct> Add(KategoriProduct obj)
     {
-        if(await DbContext.KategoriProducts.AnyAsync(obj)){
-            throw new InvalidOperationException($"Kategori with id {obj.Id} already exists");
+        if(await DbContext.KategoriProducts.AnyAsync(x=>x.IdKategori == obj.IdKategori)){
+            throw new InvalidOperationException($"Kategori with id {obj.IdKategori} already exists");
         }
         await DbContext.AddAsync(obj);
         await DbContext.SaveChangesAsync();
@@ -22,9 +22,9 @@ public class KategoriService : BaseDbService, IKategoriService
         return obj;
     }
 
-    public async Task<ActionResult> Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var obj = await DbContext.KategoriProducts.FirstOrDefaultAsync(x=>x.Id == id);
+        var obj = await DbContext.KategoriProducts.FirstOrDefaultAsync(x=>x.IdKategori == id);
         if(obj == null){
             throw new InvalidOperationException($"Kategori with id {id} not found");
         }
@@ -32,10 +32,10 @@ public class KategoriService : BaseDbService, IKategoriService
         DbContext.Remove(obj);
         await DbContext.SaveChangesAsync();
 
-        return obj;
+        return true;
     }
 
-    public async Task<List<KategoriProducts>> Get(int limit, int offset, string keyword)
+    public async Task<List<KategoriProduct>> Get(int limit, int offset, string keyword)
     {
         if(string.IsNullOrEmpty(keyword)){
             keyword = "";
@@ -46,7 +46,7 @@ public class KategoriService : BaseDbService, IKategoriService
         .Take(limit).ToListAsync();
     }
 
-    public async Task<KategoriProducts> Get(int id)
+    public async Task<KategoriProduct> Get(int id)
     {
         var result = await DbContext.KategoriProducts.FirstOrDefaultAsync();
 
@@ -58,34 +58,34 @@ public class KategoriService : BaseDbService, IKategoriService
         return result;
     }
 
-    public async Task<KategoriProducts> Get(Expression<Func<KategoriProducts, bool>> func)
+    public async Task<KategoriProduct> Get(Expression<Func<KategoriProduct, bool>> func)
     {
         throw new NotImplementedException();   
     }
 
-    public async Task<List<KategoriProducts>> GetAll()
+    public async Task<List<KategoriProduct>> GetAll()
     {
         return await DbContext.KategoriProducts.ToListAsync();
     }
 
-    public async Task<ActionResult> Update(KategoriProducts obj)
+    public async Task<KategoriProduct> Update(KategoriProduct obj)
     {
         if(obj == null){
             throw new ArgumentNullException("Kategori cannot be null");
         }
 
-        var result = await DbContext.KategoriProducts.FirstOrDefaultAsync(x=>x.Id == obj.Id);
+        var result = await DbContext.KategoriProducts.FirstOrDefaultAsync(x=>x.IdKategori == obj.IdKategori);
         if(result == null){
-            throw new InvalidOperationException($"Kategori with id {obj.Id} not found");
+            throw new InvalidOperationException($"Kategori with id {obj.IdKategori} not found");
         }
 
-        KategoriProduct.Name = obj.Name;
-        KategoriProduct.Description = obj.Description;
+        result.Nama = obj.Nama;
+        result.Deskripsi = obj.Deskripsi;
 
-        await DbContext.UpdateAsync(result);
+        DbContext.Update(result);
         await DbContext.SaveChangesAsync();
 
-        return kategori;  
+        return result;  
 
 
     }

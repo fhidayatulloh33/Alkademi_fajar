@@ -9,17 +9,20 @@ namespace PagiApp.ViewModels
         {
             Nama = string.Empty;
             Deskripsi = string.Empty;
+            Icon = string.Empty;
         }
-        public int Id { get; set; }
+        public int IdKategori { get; set; }
         [Required]
         public string Nama { get; set; }
         public string Deskripsi { get; set; }
+        public string Icon { get; set; }
 
-        public Kategori ConvertToDbModel(){
-            return new Kategori {
-                Id = this.Id,
+        public KategoriProduct ConvertToDbModel(){
+            return new KategoriProduct {
+                IdKategori = this.IdKategori,
                 Nama = this.Nama,
                 Deskripsi = this.Deskripsi,
+                Icon = this.Icon,
             };
         }
     }
