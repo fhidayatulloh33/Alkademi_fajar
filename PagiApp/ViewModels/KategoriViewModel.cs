@@ -7,10 +7,19 @@ namespace PagiApp.ViewModels
     {
         public KategoriViewModel()
         {
+            
             Nama = string.Empty;
             Deskripsi = string.Empty;
             Icon = string.Empty;
         }
+
+        public KategoriViewModel(KategoriProduct item) {
+            IdKategori = item.IdKategori;
+            Nama = item.Nama;
+            Deskripsi = item.Deskripsi;
+            Icon = item.Icon;
+        }
+
         public int IdKategori { get; set; }
         [Required]
         public string Nama { get; set; }

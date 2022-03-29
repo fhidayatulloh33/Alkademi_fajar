@@ -1,0 +1,15 @@
+@model PagiApp.ViewModels.KategoriViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+              <div class="card-body">
+                <form method="post" asp-action="Edit">
+                <input type="hidden" asp-for="IdKategori">
+                <input type="text" asp-for="Nama">
+                <input type="text" asp-for="Deskripsi">
+                <input type="text" asp-for="Icon">
+                <input type="submit" value="Tambah Kategori">
+                </form>
+              </div>

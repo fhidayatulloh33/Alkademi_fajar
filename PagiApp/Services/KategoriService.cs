@@ -29,6 +29,8 @@ public class KategoriService : BaseDbService, IKategoriService
             throw new InvalidOperationException($"Kategori with id {id} not found");
         }
 
+        // DbContext.ProdukKategoris.RemoveRange(DbContext.ProdukKategoris.Where(x=>x.IdKategori == id));
+
         DbContext.Remove(obj);
         await DbContext.SaveChangesAsync();
 
@@ -81,6 +83,7 @@ public class KategoriService : BaseDbService, IKategoriService
 
         result.Nama = obj.Nama;
         result.Deskripsi = obj.Deskripsi;
+        result.Icon = obj.Icon;
 
         DbContext.Update(result);
         await DbContext.SaveChangesAsync();
