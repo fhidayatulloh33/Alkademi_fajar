@@ -1,0 +1,47 @@
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@model PagiApp.ViewModels.ProdukViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_AdminLayout";
+}
+
+<div class="card-body">
+    <form method="post" asp-action="Edit" enctype="multipart/form-data">
+        <input type="hidden" asp-for="IdProduct">
+        <div class="input-group input-group-outline my-3">
+            <label class="form-label" asp-for="Nama">Nama</label>
+            <input type="text" class="form-control" asp-for="Nama">
+        </div>
+        <div class="input-group input-group-outline my-3">
+            <label class="form-label" asp-for="Deskripsi">Deskripsi</label>
+            <input type="text" class="form-control" asp-for="Deskripsi">
+        </div>
+        <div class="input-group input-group-outline my-3">
+            <label class="form-label" asp-for="Harga">Harga</label>
+            <input type="text" class="form-control" asp-for="Harga">
+        </div>
+        <div class="input-group input-group-outline my-3">
+            <label class="form-label" asp-for="Stock">Stok</label>
+            <input type="text" class="form-control" asp-for="Stock">
+        </div>
+        <div class="input-group input-group-outline my-3">
+            <input asp-for="GambarFile" type="file" class="form-control" />
+            <input type="text" class="form-control" asp-for="GambarFile">
+        </div>
+        @* <div class="input-group input-group-outline my-3">
+            <label asp-for="KategoriId" class="control-label"></label>
+            @Html.DropDownList("KategoriId",
+            (List<SelectListItem>)ViewBag.KategoriDataSource,
+            "",
+            new {
+            @multiple = "multiple",
+            @class = "form-select"
+            })
+            <span asp-validation-for="KategoriId" class="text-danger"></span>
+            </div> *@
+        <div class="text-center">
+            <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" value="Edit Produk">
+        </div>
+    </form>
+</div>

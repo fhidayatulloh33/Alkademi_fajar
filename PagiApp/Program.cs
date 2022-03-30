@@ -18,6 +18,7 @@ builder.Services.AddDbContext<pagiContext>(
 #region Bisnis service Injection 
 
 builder.Services.AddScoped<IKategoriService, KategoriService>();
+builder.Services.AddScoped<IProdukService, ProdukService>();
 
 #endregion
 

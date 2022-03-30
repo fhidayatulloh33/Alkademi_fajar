@@ -2,8 +2,9 @@
 
 @{
     Layout = "_AdminLayout";
+    int i = 0;
 }
-
+    
       <div class="row">
         <div class="col-12">
           <div class="card my-4">
@@ -24,13 +25,14 @@
                     </tr>
                   </thead>
 
-@foreach (var item in Model){
+@foreach (var item in Model){i++;
+
                   <tbody>
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">@item.IdKategori</h6>
+                            <h6 class="mb-0 text-sm">@i</h6>
                           </div>
                         </div>
                       </td>

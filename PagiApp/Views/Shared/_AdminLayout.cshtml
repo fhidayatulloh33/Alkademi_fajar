@@ -34,8 +34,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="~/assets/css/material-dashboard.css?v=3.0.2" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-@* @RenderBody() *@
 <body class="g-sidenav-show  bg-gray-200">
 
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
@@ -58,7 +58,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="LihatProduk">
+          <a class="nav-link text-white" asp-area="" asp-controller="Produk" asp-action="Index">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
@@ -66,7 +66,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="TambahProduk">
+          <a class="nav-link text-white" asp-area="" asp-controller="Produk" asp-action="Create">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
@@ -583,6 +583,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="~/assets/js/material-dashboard.min.js?v=3.0.2"></script>
+  
 </body>
 
 </html>
