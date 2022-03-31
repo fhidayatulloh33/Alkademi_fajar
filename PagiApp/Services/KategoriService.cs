@@ -81,6 +81,7 @@ public class KategoriService : BaseDbService, IKategoriService
             throw new InvalidOperationException($"Kategori with id {obj.IdKategori} not found");
         }
 
+        result.IdKategori = obj.IdKategori;
         result.Nama = obj.Nama;
         result.Deskripsi = obj.Deskripsi;
         result.Icon = obj.Icon;

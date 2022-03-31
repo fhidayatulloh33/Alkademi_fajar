@@ -4,9 +4,11 @@ using PagiApp.Models;
 using PagiApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using PagiApp.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PagiApp.Controllers;
 
+[Authorize]
 public class KategoriController : Controller
 {
     private readonly IKategoriService _kategoriService;
@@ -59,6 +61,8 @@ public class KategoriController : Controller
         return View(request);
     }
 
+
+    [HttpGet]
     public async Task<IActionResult> Edit(int? id) 
     {
 
@@ -77,6 +81,10 @@ public class KategoriController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Edit(int? id, KategoriViewModel request) {
+        if(id == null) {
+            return BadRequest();
+        }
+        
         if(!ModelState.IsValid){
             return View(request);
         }
@@ -96,6 +104,7 @@ public class KategoriController : Controller
         return View(request);
     }
 
+    [HttpGet]
     public async Task<IActionResult> Delete(int? id) 
     {
 

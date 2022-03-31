@@ -7,7 +7,6 @@ namespace PagiApp.ViewModels
     {
         public KategoriViewModel()
         {
-            
             Nama = string.Empty;
             Deskripsi = string.Empty;
             Icon = string.Empty;

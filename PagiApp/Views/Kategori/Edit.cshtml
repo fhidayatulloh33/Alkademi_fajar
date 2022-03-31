@@ -6,7 +6,7 @@
 
 <div class="card-body">
   <form method="post" asp-action="Edit">
-    <input type="hidden" asp-for="IdKategori">
+    <input asp-for="IdKategori" type="hidden" class="form-control" />
     <div class="input-group input-group-outline my-3">
       <label class="form-label" asp-for="Nama">Nama</label>
       <input type="text" class="form-control" asp-for="Nama">
