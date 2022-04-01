@@ -1,10 +1,12 @@
 using PagiApp.Interfaces;
+using PagiApp.ViewModels;
 using PagiApp.Datas;
 using PagiApp.Datas.Entities;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace PagiApp.Services;
+
 public class AccountService : BaseDbService, IAccountService
 {
     public AccountService(pagiContext dbContext) : base(dbContext)
@@ -16,5 +18,29 @@ public class AccountService : BaseDbService, IAccountService
         var result = await DbContext.Admins.FirstOrDefaultAsync(x => x.Username == username && x.Password == password);
 
         return result;
+    }
+
+    public async Task<Customer> LoginCustomer(string username, string password)
+    {
+        return await DbContext.Customers.FirstOrDefaultAsync(x=>x.Username == username && x.Password == password);
+    }
+
+    public async Task<Customer> Register(RegisterViewModel request){
+        //check username
+        if(await DbContext.Customers.AnyAsync(x=>x.Username == request.Username)){
+            throw new InvalidOperationException($"{request.Username} already exist");
+        }
+        
+        //check nohp
+        if(await DbContext.Customers.AnyAsync(x=>x.NoHp == request.NoHp)){
+            throw new InvalidOperationException($"{request.NoHp} already exist");
+        }
+
+        var newCustomer = request.ConvertToDataModel();
+        await DbContext.Customers.AddAsync(newCustomer);
+
+        await DbContext.SaveChangesAsync();
+
+        return newCustomer; 
     }
 }

@@ -50,7 +50,7 @@ public class AdminService : BaseDbService, IAdminService
 
     public async Task<Admin> Get(int id)
     {
-        var result = await DbContext.Admins.FirstOrDefaultAsync();
+        var result = await DbContext.Admins.FirstOrDefaultAsync(x=>x.IdAdmin == id);
 
         if (result == null)
         {
@@ -73,13 +73,18 @@ public class AdminService : BaseDbService, IAdminService
     public async Task<Admin> Update(Admin obj)
     {
         if(obj == null){
-            throw new ArgumentNullException("Kategori cannot be null");
+            throw new ArgumentNullException("Admin cannot be null");
         }
 
         var result = await DbContext.Admins.FirstOrDefaultAsync(x=>x.IdAdmin == obj.IdAdmin);
         if(result == null){
-            throw new InvalidOperationException($"Kategori with id {obj.IdAdmin} not found");
+            throw new InvalidOperationException($"Admin with id {obj.IdAdmin} not found");
         }
+
+        result.Nama = obj.Nama;
+        result.NoHp = obj.NoHp;
+        result.Username = obj.Username;
+        result.Password = obj.Password;
 
         DbContext.Update(result);
         await DbContext.SaveChangesAsync();

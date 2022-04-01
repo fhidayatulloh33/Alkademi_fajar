@@ -69,7 +69,7 @@ public class ProdukService : BaseDbService, IProdukService
 
     public async Task<Product?> Get(int id)
     {
-        var result = await DbContext.Products.FirstOrDefaultAsync();
+        var result = await DbContext.Products.FirstOrDefaultAsync(x=>x.IdProduct == id);
 
         if(result == null)
         {
@@ -107,12 +107,19 @@ public class ProdukService : BaseDbService, IProdukService
 
         Product.Nama = obj.Nama;
         Product.Deskripsi = obj.Deskripsi;
+        if (!string.IsNullOrEmpty(obj.Gambar))
+        {
+            Product.Gambar = obj.Gambar;
+        }
         Product.Harga = obj.Harga;
-        Product.Stock = obj.Stock;
-        Product.Gambar = obj.Gambar;
-    
+
+        if (obj.ProductKategoris != null && obj.ProductKategoris.Any())
+        {
+            Product.ProductKategoris = obj.ProductKategoris;
+        }  
 
         DbContext.Update(Product);
+
         await DbContext.SaveChangesAsync();
 
         return Product;

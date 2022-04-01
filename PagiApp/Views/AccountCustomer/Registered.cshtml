@@ -1,0 +1,9 @@
+@model PagiApp.ViewModels.AccountLoginViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<h4> Selamat registrasi yang dilakukan berhasil. silahkan login untuk mulai berbelanja</h4>
+
+@Html.ActionLink("Login", "Login", "AccountCustomer");

@@ -1,3 +1,4 @@
+using System.Security.Principal;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PagiApp.Models;
@@ -86,6 +87,10 @@ public class AdminController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Edit(int? id, AdminViewModel request) {
+        if(id == null) {
+            return BadRequest();
+        }
+
         if(!ModelState.IsValid){
             return View(request);
         }

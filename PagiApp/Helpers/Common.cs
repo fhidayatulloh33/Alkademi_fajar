@@ -20,5 +20,12 @@ public static class  Common
         streamContent.CopyTo(ms);
         
         return ms.ToArray();
-    }    
+    } 
+    public static int ToInt(this string content){
+        if(int.TryParse(content, out int result)){
+            return result;
+        }
+
+        throw new InvalidOperationException("Belum login euy");
+    }   
 }

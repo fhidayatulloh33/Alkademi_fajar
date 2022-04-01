@@ -1,21 +1,41 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PagiApp.Models;
+using PagiApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using PagiApp.Interfaces;
 
 namespace PagiApp.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IProdukService _produkService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger,
+    IProdukService productService)
     {
         _logger = logger;
+        _produkService = productService;
+
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var dbResult = await _produkService.GetAll();
+
+        var viewModels = new List<ProdukViewModel>();
+
+        for (int i = 0; i < dbResult.Count; i++)
+        {
+            viewModels.Add(new ProdukViewModel{
+                Nama = dbResult[i].Nama,
+                Harga = dbResult[i].Harga,
+                Gambar = dbResult[i].Gambar,
+            });
+        }
+
+        return View(viewModels);
     }
 
     public IActionResult Privacy()

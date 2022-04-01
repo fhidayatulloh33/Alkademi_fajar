@@ -1,1 +1,37 @@
-﻿
+﻿@model IEnumerable<PagiApp.ViewModels.ProdukViewModel>
+
+@foreach (var item in Model)
+{
+    <div class="row special-list">
+        <div class="col-lg-3 col-md-6 special-grid best-seller">
+            <div class="products-single fix">
+                <div class="box-img-hover">
+                    <div class="type-lb">
+                        <p class="sale">Sale</p>
+                    </div>
+                    <img src="@item.Gambar" class="img-fluid" alt="Image">
+                    <div class="mask-icon">
+                        <ul>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i
+                                    class="fas fa-eye"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i
+                                    class="fas fa-sync-alt"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i
+                                    class="far fa-heart"></i></a></li>
+                        </ul>
+                        <form asp-action="Add" asp-controller="Keranjang" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="IdProduct" value="@item.IdProduct" />
+                            <button class="cart" type="submit" value="Add to Cart">Add to Cart</button>
+                            <a class="cart" type="submit">Add to Cart</a>
+                        </form>
+                    </div>
+                </div>
+                <div class="why-text">
+                    <h4>@item.Nama</h4>
+                    <h5>@item.Harga</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -50,7 +50,7 @@ public class KategoriService : BaseDbService, IKategoriService
 
     public async Task<KategoriProduct> Get(int id)
     {
-        var result = await DbContext.KategoriProducts.FirstOrDefaultAsync();
+        var result = await DbContext.KategoriProducts.FirstOrDefaultAsync(x=>x.IdKategori == id);
 
         if (result == null)
         {
@@ -81,7 +81,6 @@ public class KategoriService : BaseDbService, IKategoriService
             throw new InvalidOperationException($"Kategori with id {obj.IdKategori} not found");
         }
 
-        result.IdKategori = obj.IdKategori;
         result.Nama = obj.Nama;
         result.Deskripsi = obj.Deskripsi;
         result.Icon = obj.Icon;
