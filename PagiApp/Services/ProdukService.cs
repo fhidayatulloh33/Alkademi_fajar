@@ -99,29 +99,29 @@ public class ProdukService : BaseDbService, IProdukService
             throw new ArgumentNullException("Product cannot be null");
         }
 
-        var Product = await DbContext.Products.FirstOrDefaultAsync(x=>x.IdProduct == obj.IdProduct);
+        var Produk = await DbContext.Products.FirstOrDefaultAsync(x=>x.IdProduct == obj.IdProduct);
 
-        if(Product == null) {
+        if(Produk == null) {
             throw new InvalidOperationException($"Product with ID {obj.IdProduct} doesn't exist in database");
         }
 
-        Product.Nama = obj.Nama;
-        Product.Deskripsi = obj.Deskripsi;
+        Produk.Nama = obj.Nama;
+        Produk.Deskripsi = obj.Deskripsi;
         if (!string.IsNullOrEmpty(obj.Gambar))
         {
-            Product.Gambar = obj.Gambar;
+            Produk.Gambar = obj.Gambar;
         }
-        Product.Harga = obj.Harga;
+        Produk.Harga = obj.Harga;
 
         if (obj.ProductKategoris != null && obj.ProductKategoris.Any())
         {
-            Product.ProductKategoris = obj.ProductKategoris;
+            Produk.ProductKategoris = obj.ProductKategoris;
         }  
 
-        DbContext.Update(Product);
+        DbContext.Update(Produk);
 
         await DbContext.SaveChangesAsync();
 
-        return Product;
+        return Produk;
     }
 } 

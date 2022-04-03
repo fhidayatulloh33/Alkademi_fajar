@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PagiApp.Controllers;
 
-[Authorize]
+[Authorize(Roles = AppConstant.ADMIN)]
 public class KategoriController : Controller
 {
     private readonly IKategoriService _kategoriService;

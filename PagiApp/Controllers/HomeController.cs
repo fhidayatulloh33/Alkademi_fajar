@@ -29,6 +29,7 @@ public class HomeController : Controller
         for (int i = 0; i < dbResult.Count; i++)
         {
             viewModels.Add(new ProdukViewModel{
+                IdProduct = dbResult[i].IdProduct,
                 Nama = dbResult[i].Nama,
                 Harga = dbResult[i].Harga,
                 Gambar = dbResult[i].Gambar,
@@ -38,9 +39,49 @@ public class HomeController : Controller
         return View(viewModels);
     }
 
-    public IActionResult Privacy()
+
+    public async Task<IActionResult> Home()
     {
-        return View();
+        var dbResult = await _produkService.GetAll();
+
+        var viewModels = new List<ProdukViewModel>();
+
+        for (int i = 0; i < dbResult.Count; i++)
+        {
+            viewModels.Add(new ProdukViewModel{
+                IdProduct = dbResult[i].IdProduct,
+                Nama = dbResult[i].Nama,
+                Harga = dbResult[i].Harga,
+                Gambar = dbResult[i].Gambar,
+            });
+        }
+
+        return View(viewModels);
+    }
+
+    public async Task<IActionResult> Produk(int? id) {
+        if(id == null) 
+        {
+            return NotFound();
+        }
+
+        var produk = await _produkService.Get(id.Value);
+
+        if (produk == null)
+        {
+            return NotFound();
+        }
+
+        return View(new ProdukDetailViewModel()
+        {
+            IdProduct = produk.IdProduct,
+            Nama = produk.Nama,
+            Deskripsi = produk.Deskripsi,
+            Harga = produk.Harga,
+            Gambar = produk.Gambar,
+            Stok = 100,
+            Terjual = 10
+        });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -4,23 +4,56 @@
   Layout = "_AdminLayout";
 }
 
-<div class="card-body">
-  <form method="post" asp-action="Edit">
-    <input asp-for="IdKategori" type="hidden" class="form-control" />
-    <div class="input-group input-group-outline my-3">
-      <label class="form-label" asp-for="Nama">Nama</label>
-      <input type="text" class="form-control" asp-for="Nama">
-    </div>
-    <div class="input-group input-group-outline my-3">
-      <label class="form-label" asp-for="Deskripsi">Deskripsi</label>
-      <input type="text" class="form-control" asp-for="Deskripsi">
-    </div>
-    <div class="input-group input-group-outline my-3">
-      <label class="form-label" asp-for="Icon">Icon</label>
-      <input type="text" class="form-control" asp-for="Icon">
-    </div>
-    <div class="text-center">
-      <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" value="Tambah Kategori">
-    </div>
-  </form>
-</div>
+<section class="tab-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Edit Kategori</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+
+        <!-- ========== form-elements-wrapper start ========== -->
+        <div class="form-elements-wrapper">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- input style start -->
+                    <form method="post" asp-action="Edit">
+                        <div class="card-style mb-30">
+                            <h6 class="mb-25">Input Fields</h6>
+                            <div class="input-style-1">
+                            <label>Nama</label>
+                                <input asp-for="IdKategori" type="hidden" />
+                                <input type="text" asp-for="Nama" />
+                            </div>
+                            <div class="input-style-1">
+                                <label>Deskripsi</label>
+                                <input type="text" asp-for="Deskripsi" />
+                            </div>
+                            <div class="input-style-1">
+                                <label>Icon</label>
+                                <input type="text" asp-for="Icon" />
+                            </div>
+                            <div class="input-style-1">
+                                <input type="submit" value="Edit Kategori" class="main-btn primary-btn square-btn btn-hover" />
+                            </div>
+
+                            <!-- end input -->
+                        </div>
+                    </form>
+
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- ========== form-elements-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+</section>

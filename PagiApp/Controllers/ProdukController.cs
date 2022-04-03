@@ -2,7 +2,6 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PagiApp.Models;
 using PagiApp.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using PagiApp.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PagiApp.Helpers;
@@ -10,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PagiApp.Controllers;
 
-[Authorize]
+[Authorize(Roles = AppConstant.ADMIN)]
 public class ProdukController : Controller
 {
     private readonly IProdukService _produkService;

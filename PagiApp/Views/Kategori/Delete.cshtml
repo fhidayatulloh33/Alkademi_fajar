@@ -4,12 +4,56 @@
   Layout = "_AdminLayout";
 }
 
-<div class="card-body">
-  <form method="post" asp-action="Delete">
-    <input type="hidden" asp-for="IdKategori">
-    <input disabled type="text" asp-for="Nama">
-    <input disabled type="text" asp-for="Deskripsi">
-    <input disabled type="text" asp-for="Icon">
-    <input type="submit" value="Hapus kategori">
-  </form>
-</div>
+<section class="tab-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Delete Kategori</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+
+        <!-- ========== form-elements-wrapper start ========== -->
+        <div class="form-elements-wrapper">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- input style start -->
+                    <form method="post" asp-action="Delete" >
+                        <div class="card-style mb-30">
+                            <h6 class="mb-25">Input Fields</h6>
+                            <div class="input-style-1">
+                            <label>Nama</label>
+                                <input asp-for="IdKategori" type="hidden" />
+                                <input disabled type="text" asp-for="Nama" />
+                            </div>
+                            <div class="input-style-1">
+                                <label>Deskripsi</label>
+                                <input disabled type="text" asp-for="Deskripsi" />
+                            </div>
+                            <div class="input-style-1">
+                                <label>Icon</label>
+                                <input disabled type="text" asp-for="Icon" />
+                            </div>
+                            <div class="input-style-1">
+                                <input type="submit" value="hapus Kategori" class="main-btn primary-btn square-btn btn-hover" />
+                            </div>
+
+                            <!-- end input -->
+                        </div>
+                    </form>
+
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- ========== form-elements-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+</section>

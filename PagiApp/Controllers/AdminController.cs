@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PagiApp.Controllers;
 
-[Authorize]
+[Authorize(Roles = AppConstant.ADMIN)]
 public class AdminController : Controller
 {
     private readonly IAdminService _adminService;

@@ -4,19 +4,68 @@
   Layout = "_AdminLayout";
 }
 
-<div class="card-body">
-  <form method="post" asp-action="Delete">
-    <input type="hidden" asp-for="IdProduct">
-    <div class="input-group input-group-outline my-3">
-      <label class="form-label" asp-for="Nama">Nama</label>
-      <input disabled type="text" class="form-control" asp-for="Nama">
-    </div>
-    <div class="input-group input-group-outline my-3">
-      <label class="form-label" asp-for="Deskripsi">Deskripsi</label>
-      <input disabled type="text" class="form-control" asp-for="Deskripsi">
-    </div>
-    <div class="text-center">
-      <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" value="Hapus Produk">
-    </div>
-  </form>
-</div>
+<section class="tab-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Hapus Produk</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+
+        <!-- ========== form-elements-wrapper start ========== -->
+        <div class="form-elements-wrapper">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- input style start -->
+                    <form method="post" asp-action="Delete" enctype="multipart/form-data">
+                        <div class="card-style mb-30">
+                            <h6 class="mb-25">Input Fields</h6>
+                            <div class="input-style-1">
+                            <label>Nama</label>
+                                <input type="hidden" asp-for="IdProduct" />
+                                <input disabled type="text" asp-for="Nama" />
+                            </div>
+                            <div class="input-style-1">
+                                <label>Deskripsi</label>
+                                <input disabled type="text" asp-for="Deskripsi" />
+                            </div>
+                            <div class="input-style-1">
+                                <label>Harga</label>
+                                <input disabled type="number" asp-for="Harga" />
+                            </div>
+                            <div class="input-style-1">
+                                <label>Gambar</label>
+                                <img src="@Model.GambarSrc" alt="" />
+                            </div>
+                            <div class="select-style-1">
+                                <label>Category</label>
+                                <div class="select-position">
+                                    <select class="form-control" asp-for="KategoriId" multiple class="form-select"
+                                        asp-items="@ViewBag.KategoriDataSource">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-style-1">
+                                <input type="submit" value="Hapus Produk" class="main-btn danger-btn square-btn btn-hover" />
+                            </div>
+
+                            <!-- end input -->
+                        </div>
+                    </form>
+
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- ========== form-elements-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+</section>
