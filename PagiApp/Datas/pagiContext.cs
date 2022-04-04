@@ -20,6 +20,7 @@ namespace PagiApp.Datas
         public virtual DbSet<Admin> Admins { get; set; } = null!;
         public virtual DbSet<Alamat> Alamats { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
+        public virtual DbSet<Detailorder> Detailorders { get; set; } = null!;
         public virtual DbSet<KategoriProduct> KategoriProducts { get; set; } = null!;
         public virtual DbSet<Keranjang> Keranjangs { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
@@ -33,6 +34,7 @@ namespace PagiApp.Datas
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseMySql("server=localhost;user=root;database=pagi", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.7.33-mysql"));
             }
         }
@@ -156,6 +158,54 @@ namespace PagiApp.Datas
                 entity.Property(e => e.Username)
                     .HasMaxLength(25)
                     .HasColumnName("username");
+            });
+
+            modelBuilder.Entity<Detailorder>(entity =>
+            {
+                entity.HasKey(e => e.IdDetaiOrder)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("detailorder");
+
+                entity.HasIndex(e => e.IdOrder, "id_order");
+
+                entity.HasIndex(e => e.IdProduct, "id_product");
+
+                entity.Property(e => e.IdDetaiOrder)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id_detai_order");
+
+                entity.Property(e => e.Harga)
+                    .HasPrecision(20)
+                    .HasColumnName("harga");
+
+                entity.Property(e => e.IdOrder)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id_order");
+
+                entity.Property(e => e.IdProduct)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id_product");
+
+                entity.Property(e => e.JmlBarang)
+                    .HasColumnType("int(20)")
+                    .HasColumnName("jml_barang");
+
+                entity.Property(e => e.SubTotal)
+                    .HasPrecision(20)
+                    .HasColumnName("sub_total");
+
+                entity.HasOne(d => d.IdOrderNavigation)
+                    .WithMany(p => p.Detailorders)
+                    .HasForeignKey(d => d.IdOrder)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("detailorder_ibfk_1");
+
+                entity.HasOne(d => d.IdProductNavigation)
+                    .WithMany(p => p.Detailorders)
+                    .HasForeignKey(d => d.IdProduct)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("detailorder_ibfk_2");
             });
 
             modelBuilder.Entity<KategoriProduct>(entity =>

@@ -28,13 +28,16 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a asp-controller="Home" asp-action="Home" class="active" aria-label="Toggle navigation">Home</a>
+                                    <a asp-controller="Home" asp-action="Home" class="active"
+                                        aria-label="Toggle navigation">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Keranjang" asp-action="Index" class="active" aria-label="Toggle navigation">Keranjang</a>
+                                    <a asp-controller="Keranjang" asp-action="Index" class="active"
+                                        aria-label="Toggle navigation">Keranjang</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="ProfileCustomer" asp-action="Index" class="active" aria-label="Toggle navigation">Profile</a>
+                                    <a asp-controller="ProfileCustomer" asp-action="Index" class="active"
+                                        aria-label="Toggle navigation">Profile</a>
                                 </li>
 
                             </ul>
@@ -70,41 +73,100 @@
 </header>
 <!-- End Header Area -->
 
-<section class="product_section layout_padding2-top layout_padding-bottom">
+
+<!-- Shopping Cart -->
+<div class="shopping-cart section">
     <div class="container">
-        <div class="heading_container heading_center">
-            <h2>
-                Keranjang
-            </h2>
-            <p>
-                Ini keranjang mu, silahkan dicheckout takut kehabisan orang lain, yang lagi ramai berbelanja
-            </p>
+        <div class="cart-list-head">
+            <!-- Cart List Title -->
+            <div class="cart-list-title">
+                <div class="row">
+                    <div class="col-lg-1 col-md-1 col-12">
+
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-12">
+                        <p>Product Name</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <p>Quantity</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-12">
+                        <p>Remove</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End Cart List Title -->
+            @foreach (var item in Model)
+            {
+                <!-- Cart Single List list -->
+                <div class="cart-single-list">
+                    <div class="row align-items-center">
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <a href="#"><img src="~/@item.Image" alt="#"></a>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-12">
+                            <h5 class="product-name"><a href="#">
+                                    @item.NamaProduk</a></h5>
+                            <p class="product-des">
+                                <span><em>Type:</em></span>
+                                <span><em>Color:</em></span>
+                            </p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <div class="count-input">
+                                @item.JmlBarang
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <p>Rp. @item.Subtotol.ToString("C", new CultureInfo("id-ID"))</p>
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-12">
+                            <a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single List list -->
+            }
         </div>
         <div class="row">
-            <table class="table">
-                <thead>
-                    <tr class="text-nowrap">
-                        <th>#</th>
-                        <th>Nama Produk</th>
-                        <th>Gambar</th>
-                        <th>Jumlah</th>
-                        <th>SubTotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        i++;
-                        <tr>
-                            <td>@i</td>
-                            <td>@item.NamaProduk</td>
-                            <td> <img src="~/@item.Image" height="100" /></td>
-                            <td>@item.JmlBarang</td>
-                            <td>@item.Subtotol.ToString("C", new CultureInfo("id-ID"))</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <div class="col-12">
+                <!-- Total Amount -->
+                <div class="total-amount">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6 col-12">
+                            <div class="left">
+                                <div class="coupon">
+                                    <form action="#" target="_blank">
+                                        <input name="Coupon" placeholder="Enter Your Coupon">
+                                        <div class="button">
+                                            <button class="btn">Apply Coupon</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="right">
+                                <ul>
+                                    <li>Cart Subtotal<span>$2560.00</span></li>
+                                    <li>Shipping<span>Free</span></li>
+                                    <li>You Save<span>$29.00</span></li>
+                                    <li class="last">You Pay<span>$2531.00</span></li>
+                                </ul>
+                                <div class="button">
+                                    <a href="checkout.html" class="btn">Checkout</a>
+                                    <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ End Total Amount -->
+            </div>
         </div>
     </div>
-</section>
+</div>
+<!--/ End Shopping Cart -->

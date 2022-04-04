@@ -7,6 +7,7 @@ namespace PagiApp.Datas.Entities
     {
         public Product()
         {
+            Detailorders = new HashSet<Detailorder>();
             Keranjangs = new HashSet<Keranjang>();
             ProductKategoris = new HashSet<ProductKategori>();
         }
@@ -18,6 +19,7 @@ namespace PagiApp.Datas.Entities
         public int Stock { get; set; }
         public string Gambar { get; set; } = null!;
 
+        public virtual ICollection<Detailorder> Detailorders { get; set; }
         public virtual ICollection<Keranjang> Keranjangs { get; set; }
         public virtual ICollection<ProductKategori> ProductKategoris { get; set; }
     }

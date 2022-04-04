@@ -7,6 +7,7 @@ namespace PagiApp.Datas.Entities
     {
         public Order()
         {
+            Detailorders = new HashSet<Detailorder>();
             Pembayarans = new HashSet<Pembayaran>();
             Pengirimen = new HashSet<Pengiriman>();
         }
@@ -23,6 +24,7 @@ namespace PagiApp.Datas.Entities
         public virtual Customer IdCustomerNavigation { get; set; } = null!;
         public virtual Keranjang IdKeranjangNavigation { get; set; } = null!;
         public virtual Status IdStatusNavigation { get; set; } = null!;
+        public virtual ICollection<Detailorder> Detailorders { get; set; }
         public virtual ICollection<Pembayaran> Pembayarans { get; set; }
         public virtual ICollection<Pengiriman> Pengirimen { get; set; }
     }
