@@ -1,3 +1,5 @@
+using System.Dynamic;
+using System;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PagiApp.Models;
@@ -44,7 +46,7 @@ public class OrderController : Controller
     public async Task<IActionResult> Index()
     {
 
-        var result = await _keranjangService.Get(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value.ToInt());
+        var result = await _orderService.Get(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value.ToInt());
 
         return View(result);
     }
@@ -63,13 +65,13 @@ public class OrderController : Controller
 
         foreach (var item in result)
         {
-            int keranjangId = request.Id.FirstOrDefault(x=> item.IdKeranjang == x);
+            int keranjangId = request.IdProduct.FirstOrDefault(x=> item.IdKeranjang == x);
             
             if(keranjangId < 1)
             {
                 continue;
             }
-            int jumlahBarangBaru = request.Qty[Array.IndexOf(request.Id, keranjangId)];
+            int jumlahBarangBaru = request.Qty[Array.IndexOf(request.IdProduct, keranjangId)];
 
             item.JmlBarang = jumlahBarangBaru;
             item.Subtotol = item.HargaBarang * jumlahBarangBaru;
@@ -78,7 +80,7 @@ public class OrderController : Controller
         var newOrder = new Order();
 
         newOrder.IdCustomer = idCustomer;
-        //newOrder.JmlBayar = result.Sum(x=>x.Subtotol);
+        newOrder.JmlBayar =  Convert.ToInt32(result.Sum(x=>x.Subtotol));
         newOrder.Note = string.Empty;
         newOrder.Status = "Masuk";
         newOrder.IdAlamat = request.Alamat;
@@ -91,7 +93,7 @@ public class OrderController : Controller
             {
                 IdOrder = newOrder.IdOrder,
                 Harga = item.HargaBarang,
-                JmlBarang = item.JmlBarang,
+                JmlBarang = Convert.ToInt32(item.JmlBarang),
                 SubTotal = item.Subtotol,
                 IdProduct = item.IdProduct
             });
@@ -102,7 +104,6 @@ public class OrderController : Controller
         await _keranjangService.Clear(idCustomer);
 
         return RedirectToAction(nameof(CheckoutBerhasil));
-        //return View();
     }
 
     public IActionResult CheckoutBerhasil(){

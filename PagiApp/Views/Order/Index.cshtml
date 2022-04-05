@@ -1,6 +1,7 @@
 @using System.Globalization
 @model List<PagiApp.ViewModels.OrderViewModel>
 @{
+    Layout = "_CustomerLayout";
     ViewData["Title"] = "Pesanan saya";
     int i = 0;
 }
@@ -20,9 +21,7 @@
       {      
         <tr>
         <th scope="row">@item.IdOrder</th>
-        @* <td>@Html.ActionLink(item.Status, "Detail", "Order", new {
-            id = item.IdStatus 
-            })</td> *@
+        <td>@item.Status</td>
         <td>@item.TglOrder.ToLongDateString() @item.TglOrder.ToLongTimeString()</td>
         <td>@item.TotalBayar.ToString("C", new CultureInfo("id-ID"))</td>
         </tr>   
@@ -30,10 +29,10 @@
     </tbody>
 </table>
 
-@section Scripts {
+@* @section Scripts {
     <script type="text/javascript">
         $(document).ready(function(){
             
         });
     </script>
-}
+} *@
