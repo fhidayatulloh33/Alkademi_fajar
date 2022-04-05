@@ -4,5 +4,6 @@ using PagiApp.ViewModels;
 
 public interface IOrderService
 {
-    Task<Order> Checkout(Order newOrder);    
+    Task<Order> Checkout(Order newOrder);  
+    //Task<List<OrderViewModel>> Get(int idCustomer);   
 }

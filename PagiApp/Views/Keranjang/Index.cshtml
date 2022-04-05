@@ -36,8 +36,8 @@
                                         aria-label="Toggle navigation">Keranjang</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="ProfileCustomer" asp-action="Index" class="active"
-                                        aria-label="Toggle navigation">Profile</a>
+                                    <a asp-controller="Alamat" asp-action="Index" class="active"
+                                        aria-label="Toggle navigation">Alamat</a>
                                 </li>
 
                             </ul>
@@ -76,6 +76,7 @@
 
 <!-- Shopping Cart -->
 <div class="shopping-cart section">
+    <form asp-controller="Order" asp-action="Checkout">
     <div class="container">
         <div class="cart-list-head">
             <!-- Cart List Title -->
@@ -117,7 +118,8 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <div class="count-input">
-                                @item.JmlBarang
+                                    <input type="hidden" name="IdProduct" value="@item.IdProduct" />
+                                    <input type="number" name="Qty" value="@item.JmlBarang" />
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
@@ -139,13 +141,10 @@
                         <div class="col-lg-8 col-md-6 col-12">
                             <div class="left">
                                 <div class="coupon">
-                                    <form action="#" target="_blank">
-                                        <input name="Coupon" placeholder="Enter Your Coupon">
-                                        <div class="button">
-                                            <button class="btn">Apply Coupon</button>
+                                        <label>Pilih Alamat Pengiriman</label>
+                                        <select name="Alamat" asp-items="@ViewBag.AlamatList"></select>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-12">
@@ -157,8 +156,10 @@
                                     <li class="last">You Pay<span>$2531.00</span></li>
                                 </ul>
                                 <div class="button">
-                                    <a href="checkout.html" class="btn">Checkout</a>
-                                    <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                                    
+                                        <button type="submit" class="btn btn-alt">Checkout</button>
+                                    </form>
+                                    <a asp-controller="Home" asp-action="Home" class="btn btn-alt">Continue shopping</a>
                                 </div>
                             </div>
                         </div>

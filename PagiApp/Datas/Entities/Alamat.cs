@@ -7,6 +7,7 @@ namespace PagiApp.Datas.Entities
     {
         public Alamat()
         {
+            Orders = new HashSet<Order>();
             Pengirimen = new HashSet<Pengiriman>();
         }
 
@@ -21,6 +22,7 @@ namespace PagiApp.Datas.Entities
         public string Deskripsi { get; set; } = null!;
 
         public virtual Customer IdCustomerNavigation { get; set; } = null!;
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Pengiriman> Pengirimen { get; set; }
     }
 }

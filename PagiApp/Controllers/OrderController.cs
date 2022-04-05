@@ -51,10 +51,58 @@ public class OrderController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Checkout()
+    public async Task<IActionResult> Checkout(CheckoutViewModel? request)
     {
+        int idCustomer = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value.ToInt();
+        var result = await _keranjangService.Get(idCustomer);
 
-        return View();
+        if(result == null || !result.Any())
+        {
+            return BadRequest();
+        }
+
+        foreach (var item in result)
+        {
+            int keranjangId = request.Id.FirstOrDefault(x=> item.IdKeranjang == x);
+            
+            if(keranjangId < 1)
+            {
+                continue;
+            }
+            int jumlahBarangBaru = request.Qty[Array.IndexOf(request.Id, keranjangId)];
+
+            item.JmlBarang = jumlahBarangBaru;
+            item.Subtotol = item.HargaBarang * jumlahBarangBaru;
+        }
+
+        var newOrder = new Order();
+
+        newOrder.IdCustomer = idCustomer;
+        //newOrder.JmlBayar = result.Sum(x=>x.Subtotol);
+        newOrder.Note = string.Empty;
+        newOrder.Status = "Masuk";
+        newOrder.IdAlamat = request.Alamat;
+        newOrder.TglTransaksi = DateTime.Now;
+        newOrder.Detailorders = new List<Detailorder>();
+
+        foreach(var item in result)
+        {
+            newOrder.Detailorders.Add(new Detailorder
+            {
+                IdOrder = newOrder.IdOrder,
+                Harga = item.HargaBarang,
+                JmlBarang = item.JmlBarang,
+                SubTotal = item.Subtotol,
+                IdProduct = item.IdProduct
+            });
+        }
+        
+        await _orderService.Checkout(newOrder);
+
+        await _keranjangService.Clear(idCustomer);
+
+        return RedirectToAction(nameof(CheckoutBerhasil));
+        //return View();
     }
 
     public IActionResult CheckoutBerhasil(){

@@ -94,4 +94,10 @@ public class KeranjangService : BaseDbService, IKeranjangService
 
         return result;
     }
+
+    public async Task Clear(int idCustomer)
+    {
+        DbContext.RemoveRange(DbContext.Keranjangs.Where(x=>x.IdCustomer == idCustomer));
+        await DbContext.SaveChangesAsync();
+    }
 }

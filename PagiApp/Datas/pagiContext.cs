@@ -162,18 +162,16 @@ namespace PagiApp.Datas
 
             modelBuilder.Entity<Detailorder>(entity =>
             {
-                entity.HasKey(e => e.IdDetaiOrder)
+                entity.HasKey(e => e.IdDetailOrder)
                     .HasName("PRIMARY");
 
                 entity.ToTable("detailorder");
 
                 entity.HasIndex(e => e.IdOrder, "id_order");
 
-                entity.HasIndex(e => e.IdProduct, "id_product");
-
-                entity.Property(e => e.IdDetaiOrder)
+                entity.Property(e => e.IdDetailOrder)
                     .HasColumnType("int(11)")
-                    .HasColumnName("id_detai_order");
+                    .HasColumnName("id_detail_order");
 
                 entity.Property(e => e.Harga)
                     .HasPrecision(20)
@@ -200,12 +198,6 @@ namespace PagiApp.Datas
                     .HasForeignKey(d => d.IdOrder)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("detailorder_ibfk_1");
-
-                entity.HasOne(d => d.IdProductNavigation)
-                    .WithMany(p => p.Detailorders)
-                    .HasForeignKey(d => d.IdProduct)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("detailorder_ibfk_2");
             });
 
             modelBuilder.Entity<KategoriProduct>(entity =>
@@ -283,27 +275,21 @@ namespace PagiApp.Datas
 
                 entity.ToTable("order");
 
+                entity.HasIndex(e => e.IdAlamat, "id_alamat");
+
                 entity.HasIndex(e => e.IdCustomer, "id_customer");
-
-                entity.HasIndex(e => e.IdKeranjang, "id_keranjang");
-
-                entity.HasIndex(e => e.IdStatus, "id_status");
 
                 entity.Property(e => e.IdOrder)
                     .HasColumnType("int(11)")
                     .HasColumnName("id_order");
 
+                entity.Property(e => e.IdAlamat)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id_alamat");
+
                 entity.Property(e => e.IdCustomer)
                     .HasColumnType("int(11)")
                     .HasColumnName("id_customer");
-
-                entity.Property(e => e.IdKeranjang)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("id_keranjang");
-
-                entity.Property(e => e.IdStatus)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("id_status");
 
                 entity.Property(e => e.JmlBayar)
                     .HasColumnType("int(15)")
@@ -317,25 +303,21 @@ namespace PagiApp.Datas
                     .HasMaxLength(10)
                     .HasColumnName("status");
 
-                entity.Property(e => e.TglTransaksi).HasColumnName("tgl_transaksi");
+                entity.Property(e => e.TglTransaksi)
+                    .HasColumnType("datetime")
+                    .HasColumnName("tgl_transaksi");
+
+                entity.HasOne(d => d.IdAlamatNavigation)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.IdAlamat)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("order_ibfk_3");
 
                 entity.HasOne(d => d.IdCustomerNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.IdCustomer)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("order_ibfk_2");
-
-                entity.HasOne(d => d.IdKeranjangNavigation)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.IdKeranjang)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("order_ibfk_1");
-
-                entity.HasOne(d => d.IdStatusNavigation)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.IdStatus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("order_ibfk_3");
             });
 
             modelBuilder.Entity<Pembayaran>(entity =>

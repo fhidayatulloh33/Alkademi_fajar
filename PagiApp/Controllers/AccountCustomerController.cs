@@ -93,7 +93,7 @@ public class AccountCustomerController : Controller
                 authProperties);
             #endregion
 
-            return RedirectToActionPermanent("Index", "Home");
+            return RedirectToActionPermanent("Home", "Home");
         }
         catch (System.Exception)
         {

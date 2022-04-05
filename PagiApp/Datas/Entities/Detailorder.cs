@@ -5,7 +5,7 @@ namespace PagiApp.Datas.Entities
 {
     public partial class Detailorder
     {
-        public int IdDetaiOrder { get; set; }
+        public int IdDetailOrder { get; set; }
         public int IdOrder { get; set; }
         public int IdProduct { get; set; }
         public decimal Harga { get; set; }
@@ -13,6 +13,5 @@ namespace PagiApp.Datas.Entities
         public decimal SubTotal { get; set; }
 
         public virtual Order IdOrderNavigation { get; set; } = null!;
-        public virtual Product IdProductNavigation { get; set; } = null!;
     }
 }
