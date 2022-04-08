@@ -1,0 +1,127 @@
+@using System.Globalization
+@using PagiApp.Helpers
+@model PagiApp.ViewModels.OrderViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Pesanan saya";
+}
+
+
+<table border="1">
+    <tbody>
+        <tr>
+            <td>Nomor Order</td>
+            <td>@Model.IdOrder</td>
+            <td>Status</td>
+            <td>@Model.Status</td>
+        </tr>
+        <tr>
+            <td>Tgl Order</td>
+            <td>@Model.TglOrder.ToLongDateString() @Model.TglOrder.ToShortTimeString()</td>
+            <td>Total Bayar</td>
+            <td>@Model.TotalBayar.ToIDR()
+                <br />
+                Ongkir Rp. 11.000,00
+                <br />
+                Total Bayar Rp. @(Model.TotalBayar + 11000)
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<h1>Daftar Item</h1>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#No</th>
+      <th scope="col">Nama Produk</th>
+      <th scope="col">Harga</th>
+      <th scope="col">Jumlah</th>
+      <th scope="col">Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var item in Model.Details)
+      {      
+        <tr>
+        <th scope="row"></th>
+        <th scope="row">@item.IdOrder</th>
+        <td>@item.Produk</td>
+        <td>@item.Harga.ToIDR()</td>
+        <td>@item.Qty</td>
+        <td>@item.SubTotal.ToIDR()</td>
+        </tr>   
+      }
+    </tbody>
+</table>
+
+<p>
+Informasi Pembayaran
+<br>
+Metode : transfer
+<br>
+Bank : BCA
+<br>
+No Rekening : 123456789
+<br>
+Atas Nama : Fajar Firdaus
+<hr>
+</p>
+
+
+@if(Model.IdStatus != AppConstant.StatusOrder.MASUK)
+{
+
+<p>Tgl Bayar</p>
+<br>
+<p>@Model.Pembayaran.TglBayar</p><br>
+        <p>Method Bayar</p><br>
+<p>@Model.Pembayaran.MetodeBayar</p><br>
+    <p>Total Bayar</p><br>
+    <p>@Model.Pembayaran.JumlahBayar</p><br>
+    <p>ID Tujuan Pembayaran</p><br>
+<p>@Model.Pembayaran.Tujuan</p><br>
+    <p>Bukti Pembayaran</p><br>
+    <img src="~/@Model.Pembayaran.FileBuktiPembayaran" height="250" /><br>
+<hr>
+
+if(@Model.IdStatus == AppConstant.StatusOrder.DIBAYAR)
+{
+    <form asp-controller="order" asp-action="konfirmasi">
+        <input type="hidden" name="IdOrder" value="@Model.IdOrder" />
+        <input type="submit" value="Konfirmasi Pembayaran" />
+    </form>
+} else if(@Model.IdStatus == AppConstant.StatusOrder.DIPROSES)
+{
+    <form asp-controller="order" asp-action="kirim">
+        <input type="hidden" name="IdOrder" value="@Model.IdOrder" />
+        <input type="hidden" name="IdAlamat" value="@Model.IdAlamat" />
+        <div class="form-group mb-3">
+            <label for="Ongkir" class="control-label">Ongkir</label>
+            <input name="Ongkir" type="number" class="form-control" />
+        </div>
+
+                <div class="form-group mb-3">
+            <label for="Kurir" class="control-label">Kurir</label>
+            <input name="Kurir" type="text" class="form-control" />
+        </div>
+
+                <div class="form-group mb-3">
+            <label for="NoResi" class="control-label">No Resi</label>
+            <input name="NoResi" type="text" class="form-control" />
+        </div>
+
+                <div class="form-group mb-3">
+            <label for="Keterangan" class="control-label">Keterangan</label>
+            <input name="Keterangan" type="text" class="form-control" />
+        </div>
+        
+        <button class="btn btn-primary" type="submit">Kirim</button>
+    </form>
+}else if(@Model.IdStatus == AppConstant.StatusOrder.DIKIRIM){
+    <p>Sudah dikirim</p>
+}
+} else {
+    <p>Belum dibayar</p>
+}

@@ -26,6 +26,7 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IKeranjangService, KeranjangService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAlamatService, AlamatService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
 
 #endregion
 

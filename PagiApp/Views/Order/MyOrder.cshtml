@@ -1,9 +1,11 @@
-@model IEnumerable<PagiApp.ViewModels.ProdukViewModel>
-
+@using System.Globalization
+@model List<PagiApp.ViewModels.OrderViewModel>
 @{
-  Layout = "_CustomerLayout";
+    Layout = "_CustomerLayout";
 }
 
+
+<!-- Start Header Area -->
 <header class="header navbar-area">
     <!-- Start Header Bottom -->
     <div class="container">
@@ -26,20 +28,20 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a asp-controller="Home" asp-action="Home" class="active" aria-label="Toggle navigation">Home</a>
+                                    <a asp-controller="Home" asp-action="Home" class="active"
+                                        aria-label="Toggle navigation">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Keranjang" asp-action="Index" class="active" aria-label="Toggle navigation">Keranjang</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="Alamat" asp-action="Index" class="active" aria-label="Toggle navigation">Alamat</a>
+                                    <a asp-controller="Keranjang" asp-action="Index" class="active"
+                                        aria-label="Toggle navigation">Keranjang</a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="Order" asp-action="MyOrder" class="active"
                                         aria-label="Toggle navigation">Order</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="AccountCustomer" asp-action="Logout" class="active" aria-label="Toggle navigation">Logout</a>
+                                    <a asp-controller="Alamat" asp-action="Index" class="active"
+                                        aria-label="Toggle navigation">Alamat</a>
                                 </li>
 
                             </ul>
@@ -73,57 +75,32 @@
     </div>
     <!-- End Header Bottom -->
 </header>
+<!-- End Header Area -->
 
-<section class="trending-product section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <h2>daftar Product</h2>
-                    <p>Pilih produk kami</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            @foreach (var item in Model){
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Product -->
-                <div class="single-product">
-                    <div class="product-image">
-                        <img src="~/@item.Gambar" alt="#">
-                        <div class="button">
-                            <a class="btn" href="/Home/Produk/@item.IdProduct">
-                                <i class="lni lni-cart"></i> 
-                               Add to Card
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <span class="category">
-                                @foreach (var kategori in item.Kategories)
-                                {
-                                <p>@kategori.Nama</p>
-                                }
-                        </span>
-                        <h4 class="title">
-                            <a href="product-grids.html">@item.Nama</a>
-                        </h4>
-                        <ul class="review">
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star"></i></li>
-                            <li><span>4.0 Review(s)</span></li>
-                        </ul>
-                        <div class="price">
-                            <span>Rp. @item.Harga</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Product -->
-            </div>
-            }
-        </div>
-    </div>
-</section>
+<h1>Daftar pesanan</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#OrderID</th>
+      <th scope="col">Tgl Transaksi</th>
+      <th scope="col"> Status </th>
+      <th scope="col">Total bayar</th>
+      <th scope="col">Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var item in Model)
+      {      
+        <tr>
+        <th scope="row">@item.IdOrder</th>
+        <td>@item.TglOrder.ToLongDateString() @item.TglOrder.ToLongTimeString()</td>
+        <td>@item.Status</td>
+        <td>@item.TotalBayar.ToString("C", new CultureInfo("id-ID"))</td>
+            <td>@Html.ActionLink(string.Format("Detail", item.IdOrder, item.TglOrder.ToShortDateString()), "MyOrderDetails", "Order", new {
+            id = item.IdOrder 
+            })</td>
+        </tr>   
+      }
+    </tbody>
+</table>
+

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace PagiApp.Controllers;
 
 [Authorize(Roles = AppConstant.ADMIN)]
-public class ProdukController : Controller
+public class ProdukController : BaseController
 {
     private readonly IProdukService _produkService;
     private readonly IKategoriService _kategoriService;

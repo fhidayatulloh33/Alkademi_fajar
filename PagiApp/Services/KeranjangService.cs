@@ -89,8 +89,9 @@ public class KeranjangService : BaseDbService, IKeranjangService
             Image = b.Gambar,
             JmlBarang  = a.JmlBarang,
             Subtotol  = a.Subtotol,
-            NamaProduk = b.Nama
-        }).ToListAsync();
+            NamaProduk = b.Nama,
+            HargaBarang = b.Harga    
+            }).ToListAsync();
 
         return result;
     }

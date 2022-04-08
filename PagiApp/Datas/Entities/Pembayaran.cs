@@ -13,6 +13,7 @@ namespace PagiApp.Datas.Entities
         public DateOnly TglBayar { get; set; }
         public int Pajak { get; set; }
         public string Tujuan { get; set; } = null!;
+        public string FileBuktiPembayaran { get; set; } = null!;
 
         public virtual Customer IdCustomerNavigation { get; set; } = null!;
         public virtual Order IdOrderNavigation { get; set; } = null!;

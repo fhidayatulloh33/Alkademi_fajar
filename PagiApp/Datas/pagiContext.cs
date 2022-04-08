@@ -28,7 +28,8 @@ namespace PagiApp.Datas
         public virtual DbSet<Pengiriman> Pengirimen { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductKategori> ProductKategoris { get; set; } = null!;
-        public virtual DbSet<Status> Statuses { get; set; } = null!;
+        public virtual DbSet<StatusOrder> StatusOrders { get; set; } = null!;
+        public virtual DbSet<Ulasan> Ulasans { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -279,6 +280,8 @@ namespace PagiApp.Datas
 
                 entity.HasIndex(e => e.IdCustomer, "id_customer");
 
+                entity.HasIndex(e => e.Status, "status");
+
                 entity.Property(e => e.IdOrder)
                     .HasColumnType("int(11)")
                     .HasColumnName("id_order");
@@ -300,7 +303,7 @@ namespace PagiApp.Datas
                     .HasColumnName("note");
 
                 entity.Property(e => e.Status)
-                    .HasMaxLength(10)
+                    .HasColumnType("int(11)")
                     .HasColumnName("status");
 
                 entity.Property(e => e.TglTransaksi)
@@ -318,6 +321,12 @@ namespace PagiApp.Datas
                     .HasForeignKey(d => d.IdCustomer)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("order_ibfk_2");
+
+                entity.HasOne(d => d.StatusNavigation)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.Status)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("order_ibfk_4");
             });
 
             modelBuilder.Entity<Pembayaran>(entity =>
@@ -335,6 +344,10 @@ namespace PagiApp.Datas
                     .HasColumnType("int(11)")
                     .HasColumnName("id_pembayaran");
 
+                entity.Property(e => e.FileBuktiPembayaran)
+                    .HasMaxLength(225)
+                    .HasColumnName("file_bukti_pembayaran");
+
                 entity.Property(e => e.IdCustomer)
                     .HasColumnType("int(11)")
                     .HasColumnName("id_customer");
@@ -348,7 +361,7 @@ namespace PagiApp.Datas
                     .HasColumnName("jumlah_bayar");
 
                 entity.Property(e => e.MetodeBayar)
-                    .HasMaxLength(10)
+                    .HasMaxLength(225)
                     .HasColumnName("metode_bayar");
 
                 entity.Property(e => e.Pajak)
@@ -358,7 +371,7 @@ namespace PagiApp.Datas
                 entity.Property(e => e.TglBayar).HasColumnName("tgl_bayar");
 
                 entity.Property(e => e.Tujuan)
-                    .HasMaxLength(10)
+                    .HasMaxLength(225)
                     .HasColumnName("tujuan");
 
                 entity.HasOne(d => d.IdCustomerNavigation)
@@ -397,13 +410,19 @@ namespace PagiApp.Datas
                     .HasColumnType("int(11)")
                     .HasColumnName("id_order");
 
+                entity.Property(e => e.Keterangan).HasMaxLength(225);
+
                 entity.Property(e => e.Kurir)
-                    .HasMaxLength(10)
+                    .HasMaxLength(50)
                     .HasColumnName("kurir");
 
+                entity.Property(e => e.NoResi).HasMaxLength(225);
+
                 entity.Property(e => e.Ongkir)
-                    .HasColumnType("int(10)")
+                    .HasPrecision(50)
                     .HasColumnName("ongkir");
+
+                entity.Property(e => e.Status).HasMaxLength(225);
 
                 entity.HasOne(d => d.IdAlamatNavigation)
                     .WithMany(p => p.Pengirimen)
@@ -486,12 +505,12 @@ namespace PagiApp.Datas
                     .HasConstraintName("product_kategori_ibfk_2");
             });
 
-            modelBuilder.Entity<Status>(entity =>
+            modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.IdStatus)
                     .HasName("PRIMARY");
 
-                entity.ToTable("status");
+                entity.ToTable("status_order");
 
                 entity.Property(e => e.IdStatus)
                     .HasColumnType("int(11)")
@@ -502,8 +521,56 @@ namespace PagiApp.Datas
                     .HasColumnName("deskripsi");
 
                 entity.Property(e => e.Nama)
-                    .HasMaxLength(25)
+                    .HasMaxLength(50)
                     .HasColumnName("nama");
+            });
+
+            modelBuilder.Entity<Ulasan>(entity =>
+            {
+                entity.HasKey(e => e.IdUlasan)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("ulasan");
+
+                entity.HasIndex(e => e.IdCustomer, "id_customer");
+
+                entity.HasIndex(e => e.IdOrder, "id_order");
+
+                entity.Property(e => e.IdUlasan)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id_ulasan");
+
+                entity.Property(e => e.Gambar)
+                    .HasMaxLength(225)
+                    .HasColumnName("gambar");
+
+                entity.Property(e => e.IdCustomer)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id_customer");
+
+                entity.Property(e => e.IdOrder)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("id_order");
+
+                entity.Property(e => e.Komentar)
+                    .HasMaxLength(225)
+                    .HasColumnName("komentar");
+
+                entity.Property(e => e.Rating)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("rating");
+
+                entity.HasOne(d => d.IdCustomerNavigation)
+                    .WithMany(p => p.Ulasans)
+                    .HasForeignKey(d => d.IdCustomer)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("ulasan_ibfk_1");
+
+                entity.HasOne(d => d.IdOrderNavigation)
+                    .WithMany(p => p.Ulasans)
+                    .HasForeignKey(d => d.IdOrder)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("ulasan_ibfk_2");
             });
 
             OnModelCreatingPartial(modelBuilder);

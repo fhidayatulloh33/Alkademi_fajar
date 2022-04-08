@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace PagiApp.Datas.Entities
 {
-    public partial class Status
+    public partial class StatusOrder
     {
-        public Status()
+        public StatusOrder()
         {
             Orders = new HashSet<Order>();
         }
